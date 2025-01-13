@@ -6,6 +6,19 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 
+export async function getUserSession() {
+  const supabase = await createClient();
+
+  // getSession() also works but not recommended
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) {
+    return null;
+  }
+
+  return { status: "success", user: data.user };
+}
+
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
 
@@ -76,7 +89,7 @@ export async function signIn(formData: FormData) {
     // if (insertError) {
     //   return {
     //     status: insertError?.message,
-    //     user: null, 
+    //     user: null,
     //   };
     // }
   }
