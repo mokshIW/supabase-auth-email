@@ -1,16 +1,19 @@
 "use client";
 
+import { signInWithGithub } from "@/actions/auth";
 import React, { useTransition } from "react";
 import { FaGithub } from "react-icons/fa";
 
 const LoginGithub = () => {
+  // useTransition is a React Hook that lets you render a part of the UI in the background.
   const [isPending, startTransition] = useTransition();
 
   const handleGithubLogin = () => {
     startTransition(async () => {
-      // await signInWithGithub();
+      await signInWithGithub();
     });
   };
+
   return (
     <div
       onClick={handleGithubLogin}
